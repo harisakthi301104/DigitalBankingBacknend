@@ -1,0 +1,6 @@
+@DigitalBankingBacknend_HostAddress = http://localhost:5014
+
+GET {{DigitalBankingBacknend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
