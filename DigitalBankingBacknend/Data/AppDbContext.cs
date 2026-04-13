@@ -1,4 +1,4 @@
-﻿using DigitalBankingBacknend.Model;
+using DigitalBankingBacknend.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalBankingBacknend.Data
@@ -10,5 +10,8 @@ namespace DigitalBankingBacknend.Data
         }
         public DbSet<User> Users { get; set; }
         public DbSet<FraudAlert> FraudAlerts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+
     }
 }
