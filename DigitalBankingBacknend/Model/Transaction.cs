@@ -1,7 +1,10 @@
-﻿namespace DigitalBankingBacknend.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DigitalBankingBacknend.Model
 {
     public class Transaction
     {
+        [Key]
         public int Id { get; set; }
         public int FromAccountId { get; set; }
         public int ToAccountId { get; set; }
