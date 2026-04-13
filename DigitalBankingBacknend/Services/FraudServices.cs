@@ -13,7 +13,7 @@ namespace DigitalBankingBacknend.Services
             _context = context;
         }
 
-        public FraudcheckDto CheckFraud(TransferDto dto)
+        public FraudcheckDto CheckFraud(TransferDTO dto)
         {
             int score = 0;
             string reason = "";
