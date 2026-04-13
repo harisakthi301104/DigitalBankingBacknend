@@ -1,4 +1,5 @@
-﻿using DigitalBankingBacknend.Services;
+﻿using DigitalBankingBacknend.DTO;
+using DigitalBankingBacknend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,10 @@ namespace DigitalBankingBacknend.Controllers
         }
 
         [HttpPost("transfer")]
-        public IActionResult Transfer(int fromId, int toId, decimal amount)
+        public IActionResult Transfer([FromBody] TransferDTO dto)
         {
-            return Ok(_service.Transfer(fromId, toId, amount));
+            var result = _service.Transfer(dto);
+            return Ok(result);
         }
     }
 }

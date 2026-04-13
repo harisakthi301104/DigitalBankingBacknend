@@ -1,4 +1,5 @@
 ﻿using DigitalBankingBacknend.Data;
+using DigitalBankingBacknend.DTO;
 using DigitalBankingBacknend.Model;
 
 namespace DigitalBankingBacknend.Services
@@ -14,30 +15,31 @@ namespace DigitalBankingBacknend.Services
             //_fraudService = fraudService;
         }
 
-        public string Transfer(int fromId, int toId, decimal amount)
+        public string Transfer(TransferDTO dto)
         {
-            var from = _context.Accounts.Find(fromId);
-            var to = _context.Accounts.Find(toId);
+            var from = _context.Accounts.Find(dto.FromAccountId);
+            var to = _context.Accounts.Find(dto.ToAccountId);
 
-            if (from.Balance < amount)
+            if (from == null || to == null)
+                return "Invalid Accounts";
+
+            if (from.Balance < dto.Amount)
                 return "Insufficient Balance";
 
-            // Fraud Check
-            //var isFraud = _fraudService.CheckFraud(fromId, amount);
+            //var isFraud = _fraudService.CheckFraud(dto.FromAccountId, dto.Amount);
 
             //if (isFraud)
             //    return "Transaction Blocked (Fraud Detected)";
 
-            from.Balance -= amount;
-            to.Balance += amount;
+            from.Balance -= dto.Amount;
+            to.Balance += dto.Amount;
 
             var txn = new Transaction
             {
-                FromAccountId = fromId,
-                ToAccountId = toId,
-                Amount = amount,
+                FromAccountId = dto.FromAccountId,
+                ToAccountId = dto.ToAccountId,
+                Amount = dto.Amount,
                 Status = "Success"
-
             };
 
             _context.Transactions.Add(txn);
