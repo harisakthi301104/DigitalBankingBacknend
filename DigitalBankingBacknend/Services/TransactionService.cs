@@ -7,12 +7,12 @@ namespace DigitalBankingBacknend.Services
     public class TransactionService
     {
         private readonly AppDbContext _context;
-        //private readonly FraudService _fraudService;
+        private readonly FraudService _fraudService;
 
-        public TransactionService(AppDbContext context)
+        public TransactionService(AppDbContext context, FraudService fraudService)
         {
             _context = context;
-            //_fraudService = fraudService;
+            _fraudService = fraudService;
         }
 
         public string Transfer(TransferDTO dto)
@@ -25,11 +25,12 @@ namespace DigitalBankingBacknend.Services
 
             if (from.Balance < dto.Amount)
                 return "Insufficient Balance";
+            var fraudResult = _fraudService.CheckFraud(dto);
 
-            //var isFraud = _fraudService.CheckFraud(dto.FromAccountId, dto.Amount);
-
-            //if (isFraud)
-            //    return "Transaction Blocked (Fraud Detected)";
+            if (fraudResult.IsFraud)
+            {
+                return $"Transaction Blocked: {fraudResult.Reason}";
+            }
 
             from.Balance -= dto.Amount;
             to.Balance += dto.Amount;
