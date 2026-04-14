@@ -1,4 +1,4 @@
-using DigitalBankingBacknend.Model;
+﻿using DigitalBankingBacknend.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalBankingBacknend.Data
@@ -14,4 +14,4 @@ namespace DigitalBankingBacknend.Data
         public DbSet<Transaction> Transactions { get; set; }
 
     }
-}
+    }
