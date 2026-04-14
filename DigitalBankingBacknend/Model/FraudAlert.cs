@@ -10,6 +10,9 @@
         public int RiskScore { get; set; }
         public bool IsBlocked { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        // Navigation — back to Transaction
+        public Transaction Transaction { get; set; } = null!;
     }
 }
 

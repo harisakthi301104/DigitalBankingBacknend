@@ -3,14 +3,15 @@
     public class User
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
         public string Role { get; set; } = "User";
-
-        public string? MfaSecretKey { get; set; }   // Base32 key
         public bool IsMfaEnabled { get; set; } = false;
+        public string? MfaSecretKey { get; set; }
 
+        // One User → Many Accounts
+        public ICollection<Account> Accounts { get; set; } = new List<Account>();
     }
 }
 
