@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
+using DigitalBankingBacknend.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AccountServices>();
 builder.Services.AddScoped<FraudService>();
 builder.Services.AddScoped<TransactionService>();
+builder.Services.AddSignalR();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
     AddJwtBearer(options =>
@@ -93,6 +95,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAngular");  // ← Make sure this is here
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapHub<NotificationHub>("/hubs/notifications");
 app.MapControllers();
 
 app.Run();

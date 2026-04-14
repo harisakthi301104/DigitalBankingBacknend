@@ -1,30 +1,36 @@
-﻿using DigitalBankingBacknend.Data;
-using DigitalBankingBacknend.Services;
-using Microsoft.AspNetCore.Http;
+﻿using DigitalBankingBacknend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalBankingBacknend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/fraud")]
     [ApiController]
+    [Authorize]
     public class FraudController : ControllerBase
     {
         private readonly FraudService _fraudService;
-        private readonly AppDbContext _appDbContext;
 
-        public FraudController(FraudService fraudService, AppDbContext appDbContext)
+        public FraudController(FraudService fraudService)
         {
             _fraudService = fraudService;
-            _appDbContext = appDbContext;
         }
 
-        [HttpGet]
-        public ActionResult GetbyId(int id)
+        // GET /api/fraud/alerts
+        [HttpGet("alerts")]
+        public IActionResult GetAllAlerts()
         {
-            var alert = _appDbContext.FraudAlerts.FirstOrDefault(a => a.Id == id);
-            if(alert == null) {
-                return NotFound();
-            }
+            return Ok(_fraudService.GetAllAlerts());
+        }
+
+
+        // GET /api/fraud/alerts/{id}
+        [HttpGet("alerts/{id}")]
+        public IActionResult GetAlertById(int id)
+        {
+            var alert = _fraudService.GetAlertById(id);
+            if (alert == null)
+                return NotFound(new { message = "Alert not found." });
             return Ok(alert);
         }
     }
