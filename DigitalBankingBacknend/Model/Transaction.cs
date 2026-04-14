@@ -23,5 +23,10 @@ namespace DigitalBankingBacknend.Model
 
         public DateTime Date { get; set; } = DateTime.Now;
         public string Status { get; set; }
+
+        //// Navigation properties
+        //public Account FromAccount { get; set; } = null!;
+        //public Account ToAccount { get; set; } = null!;
+        //public FraudAlert? FraudAlert { get; set; }
     }
 }
