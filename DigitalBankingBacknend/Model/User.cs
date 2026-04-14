@@ -10,6 +10,10 @@ namespace DigitalBankingBacknend.Model
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public string Role { get; set; } = "User";
+
+        public string? MfaSecretKey { get; set; }   // Base32 key
+        public bool IsMfaEnabled { get; set; } = false;
+
     }
 }
 
