@@ -123,12 +123,12 @@ namespace DigitalBankingBacknend.Services
                 })
                 .ToList();
         }
-        public TransactionSummaryDTO GetSummary(int accountId)
+        public TransferSummaryDTO GetSummary(int accountId)
         {
             var txns = _context.Transactions
                 .Where(t => t.FromAccountId == accountId || t.ToAccountId == accountId);
 
-            return new TransactionSummaryDTO
+            return new TransferSummaryDTO
             {
                 TotalCredits = txns.Where(t => t.ToAccountId == accountId).Sum(t => t.Amount),
                 TotalDebits = txns.Where(t => t.FromAccountId == accountId).Sum(t => t.Amount),
