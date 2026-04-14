@@ -1,7 +1,10 @@
-﻿namespace DigitalBankingBacknend.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DigitalBankingBacknend.Model
 {
     public class FraudAlert
     {
+        [Key]
         public int Id { get; set; }
         public int TransactionId { get; set; }
         public int AccountId { get; set; }

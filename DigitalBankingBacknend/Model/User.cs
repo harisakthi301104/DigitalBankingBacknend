@@ -1,7 +1,10 @@
-﻿namespace DigitalBankingBacknend.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DigitalBankingBacknend.Model
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

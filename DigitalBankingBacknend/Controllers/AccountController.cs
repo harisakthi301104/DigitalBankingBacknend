@@ -17,15 +17,54 @@ namespace DigitalBankingBacknend.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create(int userId)
+        public IActionResult Create(int userId, string accountType)
         {
-            return Ok(_service.CreateAccount(userId));
+            var account = _service.CreateAccount(userId, accountType);
+            return Ok(account);
         }
 
-        [HttpGet("{userId}")]
-        public IActionResult Get(int userId)
+    
+        [HttpGet("{accountId}")]
+        public IActionResult GetById(int accountId)
         {
-            return Ok(_service.GetAccount(userId));
+            var account = _service.GetAccountById(accountId);
+
+            if (account == null)
+                return NotFound("Account not found");
+
+            return Ok(account);
+        }
+
+    
+        [HttpGet("user/{userId}")]
+        public IActionResult GetByUser(int userId)
+        {
+            var accounts = _service.GetAllByUser(userId);
+            return Ok(accounts);
+        }
+
+        [HttpPost("deposit")]
+        public IActionResult Deposit(int accountId, decimal amount)
+        {
+            return Ok(_service.Deposit(accountId, amount));
+        }
+
+    
+        [HttpPost("withdraw")]
+        public IActionResult Withdraw(int accountId, decimal amount)
+        {
+            return Ok(_service.Withdraw(accountId, amount));
+        }
+        [HttpPost("freeze/{accountId}")]
+        public IActionResult Freeze(int accountId)
+        {
+            return Ok(_service.FreezeAccount(accountId));
+        }
+
+        [HttpPost("unfreeze/{accountId}")]
+        public IActionResult Unfreeze(int accountId)
+        {
+            return Ok(_service.UnfreezeAccount(accountId));
         }
     }
 }

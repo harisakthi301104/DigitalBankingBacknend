@@ -1,4 +1,4 @@
-using DigitalBankingBacknend.Model;
+﻿using DigitalBankingBacknend.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalBankingBacknend.Data
@@ -44,4 +44,4 @@ namespace DigitalBankingBacknend.Data
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
-}
+    }
